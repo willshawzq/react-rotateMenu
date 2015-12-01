@@ -1,0 +1,45 @@
+* {
+	box-sizing: border-box;
+}
+body {
+	background: #f9f9f9;
+}
+.rotate-menu {
+    position: fixed;
+	width: 50px;
+    height: 50px;
+    right: 20px;
+    bottom: 20px;
+	.menu-items {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		border-radius: 50%;
+		list-style: none;
+		li {
+			position: absolute;
+			top: 10%;
+			right: 10%;
+			margin: 0;
+			width: 80%;
+			height: 80%;
+			border-radius: 50%;
+			transform: rotate(-720deg);
+			background: transparent;
+			transition: .5s;
+		}
+	}
+	.center-item {
+		position: absolute;
+		top: 0;
+		right: 0;
+		width: 100%;
+		height: 100%;
+		border-radius: 50%;
+		transform: rotate(0deg);
+		transition: transform 1s;
+		background: url(img/home.png);
+	}
+}

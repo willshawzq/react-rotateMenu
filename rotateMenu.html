@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="rotateMenu.css">
+</head>
+<body>
+	<div class="rotate-menu">
+		<ul class="menu-items">
+			<li class="item"><img src="img/prev.png" alt=""/></li>
+			<li class="item"><img src="img/open.png" alt="" /></li>
+			<li class="item"><img src="img/clos.png" alt="" /></li>
+			<li class="item"><img src="img/full.png" alt="" /></li>
+			<li class="item"><img src="img/refresh.png" alt="" /></li>
+		</ul>
+		<span class="center-item"></span>
+	</div>
+	<script type="text/javascript">
+	var rotateMenu = (function() {
+		var oMenu = document.querySelector(".rotate-menu"),
+			oUl = oMenu.querySelector('.menu-items'),
+			oLi = oMenu.querySelectorAll("li.item"),
+			oSpan = oMenu.querySelector('.center-item');
+
+		var btnOn = false;
+		oSpan.onclick = function(ev) {
+			if(btnOn) {
+				this.removeAttribute('style');
+				Array.prototype.forEach.call(oLi, function(el, i) {
+					el.removeAttribute('style');
+					el.style.transitionDelay = 0.1 * i + 's';
+				});
+				btnOn = false;
+			}else {
+				this.style.transform = 'rotate(-360deg)';
+				Array.prototype.forEach.call(oLi, function(el, i) {
+					el.style.transitionDelay = 0.1 * (5 - i) + 's';
+					el.style.top = -Math.sin((Math.PI / 8 * i))* 150 + "px";
+					el.style.right = Math.cos((Math.PI / 8 * i)) * 150 + "px";
+					el.style.transform = 'rotate(0deg)';
+				});
+				btnOn = true;
+			}
+		}
+		oUl.onclick = function(ev) {
+			var target = ev.target;
+			if(target.nodeName.toLowerCase() === 'img') {
+				var node = target.parentNode;
+				node.style.transition = '.3s ease';
+				node.style.transform = 'scale(2) rotate(0deg)';
+				node.style.opacity = '.1';
+				//传入的参数fn，如果进行了作用域重定向，则解除事件绑定时会失效
+				node.addEventListener('transitionend',ended,false);
+			}
+		}
+		function ended() {
+			this.style.transition = '.1s ease';
+			this.style.transform = 'scale(1) rotate(0deg)';
+			this.style.opacity = '1';
+			this.removeEventListener('transitionend',ended,false);
+		}
+	})();
+	</script>
+</body>
+</html>
